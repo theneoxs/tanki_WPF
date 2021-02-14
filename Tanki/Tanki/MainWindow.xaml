@@ -1,0 +1,111 @@
+﻿<Window x:Class="Tanki.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Tanki"
+        mc:Ignorable="d"
+        KeyDown="Window_KeyDown"
+        Title="Tanki Offline" Height="800" Width="800">
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type local:Cell}">
+            <Border Width="10" Height="10" Margin="1">
+                <Border.Background>
+                    <ImageBrush ImageSource="{Binding File}"/>
+                </Border.Background>
+            </Border>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:Tank}">
+            <Border Width="10" Height="10" Margin="1">
+                <Border.Background>
+                    <ImageBrush ImageSource="{Binding File}"/>
+                </Border.Background>
+            </Border>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:Wall}">
+            <Border Width="10" Height="10" Margin="1">
+                <Border.Background>
+                    <ImageBrush ImageSource="{Binding File}"/>
+                </Border.Background>
+            </Border>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:Bullet}">
+            <Border Width="10" Height="10" Margin="1" Background="LightGray">
+                <Ellipse Margin="4" Stroke="Orange" StrokeThickness="3"/>
+            </Border>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid Background="Sienna">
+        <Grid.Resources>
+            <Style TargetType="TextBlock">
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="FontFamily" Value="Comic Sans MS"/>
+            </Style>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Border Grid.Column="1" Grid.Row="1" Background="Green"/>
+        <Viewbox Grid.Column="1" Grid.Row="1">
+        <ItemsControl x:Name="ic">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <ItemsControl ItemsSource="{Binding}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        </Viewbox>
+        
+        <Border x:Name="leftBorder" Grid.Column="0" Grid.Row="1" Background="Thistle">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Column="0" Grid.Row="0" Text="Player 1: Red" 
+                           Foreground="Red" FontSize="18" Padding="5"/>
+                <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal">
+                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Lives: " 
+                           FontSize="18" Margin="5,5,10,0"/>
+                    <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding Live}" 
+                           FontSize="18" Margin="5,5,10,0"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+        <Border x:Name="rightBorder" Grid.Column="2" Grid.Row="1" Background="DarkSeaGreen">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Column="0" Grid.Row="0" Text="Player 2: Green" 
+                           Foreground="Green" FontSize="18" Padding="5"/>
+                <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal">
+                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Lives: " 
+                           FontSize="18" Margin="5,5,10,0"/>
+                    <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding Live}" 
+                           FontSize="18" Margin="5,5,10,0"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
